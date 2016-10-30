@@ -133,8 +133,4 @@ def possession():
     # Calculate % chance for smaller number
     chance = .5 * ((opp_bot_time - our_bot_time) / max(our_bot_time, opp_bot_time) + 1)
 
-    # Inverts % chance incase we are the larger one
-    #if our_bot_time > opp_bot_time:
-    #    chance = 1 - chance
-
     return chance

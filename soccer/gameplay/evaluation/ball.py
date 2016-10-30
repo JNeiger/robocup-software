@@ -109,3 +109,32 @@ def time_to_ball(robot):
     #calculate time for self to reach ball using max_vel + a slight delay for capture
     dist_to_ball = robot.pos.dist_to(main.ball().pos)
     return (dist_to_ball / max_vel) + delay
+
+## Returns percent chance of your team having possession
+# @return a number between 0 and 1 that represents the chance that your team has possession
+def possession():
+    closest_opp_bot, closest_dist = None, float("inf")
+    for bot in main.their_robots():
+        if bot.visible:
+            dist = (bot.pos - main.ball().pos).mag()
+            if dist < closest_dist:
+                closest_opp_bot, closest_dist = bot, dist
+
+    closest_our_bot, closest_dist = None, float("inf")
+    for bot in main.our_robots():
+        if bot.visible:
+            dist = (bot.pos - main.ball().pos).mag()
+            if dist < closest_dist:
+                closest_our_bot, closest_dist = bot, dist
+
+    our_bot_time = time_to_ball(closest_our_bot)
+    opp_bot_time = time_to_ball(closest_opp_bot)
+
+    # Calculate % chance for smaller number
+    chance = .5 * ((opp_bot_time - our_bot_time) / max(our_bot_time, opp_bot_time) + 1)
+
+    # Inverts % chance incase we are the larger one
+    #if our_bot_time > opp_bot_time:
+    #    chance = 1 - chance
+
+    return chance

@@ -3,7 +3,7 @@ import constants
 import play
 import enum
 import behavior
-import evaluation.opposing_team
+import evaluation
 import main
 
 
@@ -41,5 +41,6 @@ class test_num_offense(play.Play):
     #         print('Something?')
     # ---------------------------------------------------------
     def execute_idle(self):
-             num = evaluation.opposing_team.eval_num_on_offense()
+             #num = evaluation.opposing_team.eval_num_on_offense()
+             num = evaluation.ball.possession()
              print(num)

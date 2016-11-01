@@ -130,7 +130,8 @@ def possession():
     our_bot_time = time_to_ball(closest_our_bot)
     opp_bot_time = time_to_ball(closest_opp_bot)
 
-    # Calculate % chance for smaller number
+    # Relative percent error equation between the two teams min_time to ball
+    # (Scaled to be between 0 and 1)
     chance = .5 * ((opp_bot_time - our_bot_time) / max(our_bot_time, opp_bot_time) + 1)
 
     return chance

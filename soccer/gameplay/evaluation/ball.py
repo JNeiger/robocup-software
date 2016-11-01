@@ -110,6 +110,7 @@ def time_to_ball(robot):
     dist_to_ball = robot.pos.dist_to(main.ball().pos)
     return (dist_to_ball / max_vel) + delay
 
+
 ## Returns percent chance of your team having possession
 # @return a number between 0 and 1 that represents the chance that your team has possession
 def possession():
@@ -132,6 +133,7 @@ def possession():
 
     # Relative percent error equation between the two teams min_time to ball
     # (Scaled to be between 0 and 1)
-    chance = .5 * ((opp_bot_time - our_bot_time) / max(our_bot_time, opp_bot_time) + 1)
+    chance = .5 * (
+        (opp_bot_time - our_bot_time) / max(our_bot_time, opp_bot_time) + 1)
 
     return chance

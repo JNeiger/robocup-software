@@ -15,13 +15,11 @@ class TestNumOnOffense(play.Play):
         super().__init__(continuous=True)
 
         self.add_state(TestNumOnOffense.State.idle,
-                            behavior.Behavior.State.running)
-        
+                       behavior.Behavior.State.running)
 
-        self.add_transition(behavior.Behavior.State.start,
-                                 self.State.idle, lambda: True,
-                                 'immediately')
+        self.add_transition(behavior.Behavior.State.start, self.State.idle,
+                            lambda: True, 'immediately')
 
     def execute_idle(self):
-             num = evaluation.opposing_team.eval_num_on_offense()
-             print(num)
+        num = evaluation.opposing_team.eval_num_on_offense()
+        print(num)

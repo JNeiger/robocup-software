@@ -151,19 +151,28 @@ void MotionControl::run() {
     // tracking error
     Point posError = target.pos - _robot->pos;
 
-    // acceleration factor
+    // Acceleration feedforward
     Point acceleration;
+    // Velocity feedfordward
+    Point velocity;
+    
     boost::optional<RobotInstant> nextTarget =
         _robot->path().evaluate(timeIntoPath + RJ::Seconds(1) / 60.0);
     if (nextTarget) {
         acceleration = (nextTarget->motion.vel - target.vel) / 60.0f;
+        velocity = (nextTarget->motion.pos - target.pos) / 60.0f;
     } else {
         acceleration = {0, 0};
+        velocity = {0, 0};
     }
-    Point accelFactor =
-        acceleration * 60.0f * (*_robot->config->accelerationMultiplier);
+    Point accelFeedForward =
+        acceleration * 60.0f * (*_robot->config->accelerationFeedForward);
+    Point velFeedForward = 
+        velocity * 60.0f * (*_robot->config->velocityFeedForward);
 
-    target.vel += accelFactor;
+    target.vel += accelFeedForward;
+    target.vel += velFeedForward;
+    
 
     // PID on position
     target.vel.x() += _positionXController.run(posError.x());

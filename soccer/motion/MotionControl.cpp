@@ -193,11 +193,12 @@ void MotionControl::run() {
 
     if (mode == mc_mode::STEP) {
         target.vel = Point(stepX, stepY);
+    } else {
+        // convert from world to body coordinates
+        // the +y axis of the robot points forwards
+        target.vel = target.vel.rotated(M_PI_2 - _robot->angle);
     }
 
-    // convert from world to body coordinates
-    // the +y axis of the robot points forwards
-    target.vel = target.vel.rotated(M_PI_2 - _robot->angle);
 
     this->_targetBodyVel(target.vel);
 }

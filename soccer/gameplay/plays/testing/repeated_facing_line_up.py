@@ -83,7 +83,7 @@ class RepeatedFacingLineUp(play.Play):
     # 1 is right, -1 is left
     def generate_line(self, x_multiplier):
         x = (constants.Field.Width / 2 - constants.Robot.Radius *
-             2) * x_multiplier
+             6) * x_multiplier
         y_start = 1.0
         line = robocup.Segment(
             robocup.Point(x, constants.Robot.Radius + y_start), robocup.Point(

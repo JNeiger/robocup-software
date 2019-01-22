@@ -6,6 +6,7 @@
 #include <vector>
 #include <math.h>
 #include <cmath>
+#include <iostream>
 
 REGISTER_CONFIGURABLE(KickEvaluator)
 
@@ -103,6 +104,17 @@ KickResults KickEvaluator::eval_pt_to_seg(Point origin, Segment target) {
         }
     }
 
+    std::cout << targetWidth << std::endl << std::endl;
+
+    for (int i = 0; i < botLocations.size(); i++) {
+        std::cout << " d" << get<0>(botLocations.at(i)) << std::endl;
+        std::cout << " t" << get<1>(botLocations.at(i)) << std::endl;
+        std::cout << " m" << botMeans.at(i) << std::endl;
+        std::cout << " s" << botStDevs.at(i) << std::endl;
+        std::cout << " v" << botVertScales.at(i) << std::endl;
+        std::cout << std::endl;
+    }
+
     // Create function with only 1 input
     // Rest are bound to constant values
     function<tuple<float, float>(float)> keFunc =
@@ -134,6 +146,17 @@ KickResults KickEvaluator::eval_pt_to_seg(Point origin, Segment target) {
     // Grab the lcoal max values and their X location
     vector<float> maxXValues = optimizer.getMaxXValues();
     vector<float> maxValues = optimizer.getMaxValues();
+
+    for (int i = 0; i < maxXValues.size(); i++) {
+        std::cout << "X " << maxXValues.at(i) << std::endl;
+        std::cout << "V " << maxValues.at(i) << std::endl;
+        std::cout << std::endl;
+    }
+
+    for (float i = -.12; i < 0.12; i += 0.005) {
+        tuple<float, float> ret = keFunc(i);
+        std::cout << "(" << i << ") " << get<0>(ret) << std::endl;
+    }
 
     // Default to a local max
     int index = distance(maxValues.begin(),

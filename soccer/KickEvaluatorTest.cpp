@@ -85,3 +85,24 @@ TEST(KickEvaluator, check_best_point) {
     EXPECT_NEAR((std::get<0>(expected)).x(), (std::get<0>(pt_to_opp_goal)).x(),
                 0.01);
 }
+
+TEST(KickEvaluator, shot_direction) {
+    SystemState state;
+
+    state.self[0]->visible = true;
+    state.self[0]->pos = Point(1.67, 2.459);
+    state.self[1]->visible = true;
+    state.self[1]->pos = Point(.8527, 1.2732);
+    state.self[2]->visible = true;
+    state.self[2]->pos = Point(1.9056, 2.80131);
+
+    KickEvaluator kickEval(&state);
+    kickEval.excluded_robots.push_back(state.self[2]);
+
+    std::pair<Point, double> ret;
+    
+    ret = kickEval.eval_pt_to_our_goal(Point(1.9056, 2.80131));
+
+    std::cout << std::get<0>(ret) << std::endl;
+    std::cout << std::get<1>(ret) << std::endl;
+}

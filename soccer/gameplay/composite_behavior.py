@@ -18,6 +18,19 @@ class CompositeBehavior(behavior.Behavior):
     # FIXME: what if a subbehavior of @bhvr is required, but this is not?
     # FIXME: how do priorities work?
     # FIXME: how do nested priorities work?
+    #
+    # Role assignment will try to fill the behaviors/subbheaviors
+    # Assuming it's a child that is required
+    # If there ends up being too many required roles
+    # it will start dropping subbehaviors at the highest level
+    # Until that number is below the number we have
+    # If at the highest level there are required roles which can't be filled
+    # it will error
+    #
+    # Subbehaviors should very rarely use required roles if possible
+    # Behaviors should give how many robots required, and allowed at the worst case
+    # allows plays to be cut out before they are used and fail halfway through
+    #
     def add_subbehavior(self,
                         bhvr: behavior.Behavior,
                         name: str,

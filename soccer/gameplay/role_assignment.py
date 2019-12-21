@@ -213,6 +213,37 @@ PreferChipper = 2.5
 # returns a tree with the same structure as @role_reqs, but the leaf nodes have (RoleRequirements, OurRobot) tuples instead of just RoleRequirements objects
 def assign_roles(robots, role_reqs):
 
+    # TODO(Joe)
+    # Almost need to figure out what roles we want first
+    # then figure out how to assign robots
+    # Start at top, sort by priority
+    # Pick behavior with lowest
+    # Add any required to list
+    # Take any non-idle robots create possible role for them
+    # and their end priority
+    # Priority based on end chart with very specific requirements
+    # IDLE will also be lowest priority
+    # Even when chained
+    # Everything else is based on the parents
+    #
+    # The lowest priority play which could not get it's required filled
+    # will have no robots filling in
+    # And will not run
+    # It will be unable to run
+    #
+    # Cost needs some way to normalize
+    # Maybe throw away the munkres
+    # Base cost on priority
+    # Higher priority should get lowest cost
+    # Assume lower priority things aren't as time critical
+    # Allows for cost not have to be normalized between different items
+    # Cost between parent and child behaviors will have to be smarter
+    # To not overwhelm certain cost
+    # But that's easier than doing anything else
+    #
+    # Each play should base priority on which robots are most needed for their play
+    # No regard for other plays
+
     fail_reason = ""
 
     # check for empty request set

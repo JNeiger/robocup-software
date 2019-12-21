@@ -124,6 +124,12 @@ class RootPlay(Play, QtCore.QObject):
                     logging.info("Chose new play: '" +
                                  self.play.__class__.__name__ + "'")
 
+
+        # TODO(Joe)
+        # Implement formation here
+        # Need to take in list of executing zones of influence
+        #  
+
         # Role Assignment
         ################################################################################
         try:
